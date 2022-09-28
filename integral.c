@@ -42,7 +42,21 @@ int main (int argc, const char *argv[]) {
 double integrate (int num_threads, int samples, int a, int b, double (*f)(double)) {
     double integral;
 
-    /* Your code goes here */
+    omp_set_num_threads(num_threads);
+    double totalY = 0;
+    double randX = 0.0;
+
+    #pragma omp parallel private(randX) reduction(+: totalY) 
+    {
+        struct rand_gen rand = init_rand();
+        for (int i = 0; i < samples/num_threads; ++i) {
+            randX = next_rand(rand) * (b-a) + a;
+            totalY += f(randX);
+        }
+        free_rand(rand);
+    }    
+    
+    integral = (totalY * (b-a)) / samples;
 
     return integral;
 }
