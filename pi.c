@@ -35,9 +35,30 @@ int main (int argc, const char *argv[]) {
 
 
 double calculate_pi (int num_threads, int samples) {
-    double pi;
+   
+    omp_set_num_threads(num_threads);
+    int insideCircle = 0;
+    double randX, randY = 0.0;
 
-    /* Your code goes here */
+    #pragma omp parallel private(randX, randY) reduction(+: insideCircle) 
+    {
+        struct rand_gen rand = init_rand();
+        for (int i = 0; i < samples/num_threads; ++i) {
+            randX = next_rand(rand);
+            randY = next_rand(rand);
+
+            //0 to 1 inclusive
+            if ((randX * randX) + (randY * randY) < 1)
+                ++insideCircle;
+        }
+        free_rand(rand);
+    }
+    
+    
+    //insideCircle += insideCircle_priv;
+    
+    
+    double pi = 4.0 * insideCircle / samples;
 
     return pi;
 }
