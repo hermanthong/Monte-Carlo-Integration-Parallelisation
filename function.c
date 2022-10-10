@@ -1,8 +1,8 @@
 /*
 ============================================================================
 Filename    : function.c
-Author      : Your names goes here
-SCIPER		: Your SCIPER numbers
+Author      : Herman Thong, Tharen Candi
+SCIPER		: 359559, 359399
 ============================================================================
 */
 double identity_f (double x){

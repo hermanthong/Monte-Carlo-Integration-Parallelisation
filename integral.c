@@ -1,8 +1,8 @@
 /*
 ============================================================================
 Filename    : integral.c
-Author      : Your names goes here
-SCIPER		: Your SCIPER numbers
+Author      : Herman Thong, Tharen Candi
+SCIPER		: 359559, 359399
 ============================================================================
 */
 
